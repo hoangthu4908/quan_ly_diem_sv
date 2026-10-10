@@ -57,15 +57,11 @@ for i, txt in enumerate(df["Tổng kết"]):
   plt.annotate(str(txt), (df["Họ và tên"].iloc[i], df["Tổng kết"].iloc[i] + 0.1), ha="center")
 
 plt.show()
-}
-
 df = pd.DataFrame(data)
 
 # 2. Tính điểm tổng kết
-df["Tong_ket"] = (
-    0.2 * df["Chuyen_can"] + 0.3 * df["Giua_ky"] + 0.5 * df["Cuoi_ky"]
+df["Tong_ket"] = ( 0.2 * df["Chuyen_can"] + 0.3 * df["Giua_ky"] + 0.5 * df["Cuoi_ky"]
 ).round(2)
-
 
 # 3. Hàm xếp loại sinh viên
 def xep_loai(diem):
@@ -77,16 +73,13 @@ def xep_loai(diem):
         return "Trung bình"
     else:
         return "Yếu"
-
-
+        
 df["Xep_loai"] = df["Tong_ket"].apply(xep_loai)
 
 # 4. Giao diện Web App
 st.title("QUẢN LÝ ĐIỂM SINH VIÊN")
-
 st.subheader("Bảng điểm của 10 sinh viên")
 st.dataframe(df)
-
 st.subheader("Thống kê chung")
 dtb_lop = df["Tong_ket"].mean()
 sv_max = df.loc[df["Tong_ket"].idxmax()]
@@ -94,11 +87,9 @@ sv_min = df.loc[df["Tong_ket"].idxmin()]
 so_dat = (df["Tong_ket"] >= 5.0).sum()
 
 st.write(f"- **Điểm trung bình của lớp:** {dtb_lop:.2f}")
-st.write(
-    f"- **Sinh viên điểm tổng kết cao nhất:** {sv_max['Ho_va_ten']} ({sv_max['Tong_ket']})"
+st.write(f"- **Sinh viên điểm tổng kết cao nhất:** {sv_max['Ho_va_ten']} ({sv_max['Tong_ket']})"
 )
-st.write(
-    f"- **Sinh viên điểm tổng kết thấp nhất:** {sv_min['Ho_va_ten']} ({sv_min['Tong_ket']})"
+st.write(f"- **Sinh viên điểm tổng kết thấp nhất:** {sv_min['Ho_va_ten']} ({sv_min['Tong_ket']})"
 )
 st.write(f"- **Số sinh viên đạt (>=5.0):** {so_dat}")
 
