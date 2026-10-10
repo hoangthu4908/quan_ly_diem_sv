@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
-# 1. Tạo dữ liệu mẫu theo đúng đề bài
+# 1. Tạo dữ liệu mẫu
 data = {'Họ và tên': ['An', 'Hương', 'Lan', 'Minh', 'Bình', 'Hiền', 'Trang', 'Bảo', 'Trâm', 'My'],
     'Điểm chuyên cần': [8.0, 9.0, 7.5, 8.5, 9.5, 7.0, 6.5, 9.5, 7.0, 9.0],
     'Điểm giữa kì': [7.0, 8.0, 7.5, 6.0, 9.0, 9.5, 8.5, 7.5, 9.0, 8.5],
@@ -57,12 +57,11 @@ for i, txt in enumerate(df["Tổng kết"]):
   plt.annotate(str(txt), (df["Họ và tên"].iloc[i], df["Tổng kết"].iloc[i] + 0.1), ha="center")
 
 plt.show()
-   ,
 }
 
 df = pd.DataFrame(data)
 
-# 2. Tính điểm tổng kết (20% chuyên cần + 30% giữa kỳ + 50% cuối kỳ)
+# 2. Tính điểm tổng kết
 df["Tong_ket"] = (
     0.2 * df["Chuyen_can"] + 0.3 * df["Giua_ky"] + 0.5 * df["Cuoi_ky"]
 ).round(2)
@@ -82,16 +81,12 @@ def xep_loai(diem):
 
 df["Xep_loai"] = df["Tong_ket"].apply(xep_loai)
 
-# ==================== THIẾT KẾ GIAO DIỆN WEB APP ====================
-
-# Tiêu đề chính
+# 4. Giao diện Web App
 st.title("QUẢN LÝ ĐIỂM SINH VIÊN")
 
-# Hiển thị bảng điểm
 st.subheader("Bảng điểm của 10 sinh viên")
 st.dataframe(df)
 
-# Thống kê chung
 st.subheader("Thống kê chung")
 dtb_lop = df["Tong_ket"].mean()
 sv_max = df.loc[df["Tong_ket"].idxmax()]
@@ -107,7 +102,6 @@ st.write(
 )
 st.write(f"- **Số sinh viên đạt (>=5.0):** {so_dat}")
 
-# Tra cứu sinh viên theo Selectbox (danh sách xổ xuống)
 st.subheader("Tra cứu thông tin cá nhân sinh viên")
 ten_chon = st.selectbox("Chọn tên sinh viên:", df["Ho_va_ten"])
 sv_chon = df[df["Ho_va_ten"] == ten_chon].iloc[0]
@@ -119,7 +113,6 @@ st.write(f"- Điểm cuối kỳ: {sv_chon['Cuoi_ky']}")
 st.write(f"- **Điểm tổng kết:** {sv_chon['Tong_ket']}")
 st.write(f"- **Xếp loại:** {sv_chon['Xep_loai']}")
 
-# Biểu đồ cột điểm tổng kết
 st.subheader("Biểu đồ điểm tổng kết của 10 sinh viên")
 fig, ax = plt.subplots(figsize=(10, 4))
 ax.bar(df["Ho_va_ten"], df["Tong_ket"], color="orange")
@@ -128,7 +121,6 @@ ax.set_ylabel("Điểm tổng kết")
 ax.set_ylim(0, 10)
 st.pyplot(fig)
 
-# Footer: Hiển thị họ tên và MSSV kích thước chữ nhỏ ở cuối trang
 st.markdown("---")
 st.markdown(
     "<p style='text-align: center; color: gray; font-size: small;'>Họ tên: [Hoàng Anh Thư] - MSSV: [026308009340]</p>",
