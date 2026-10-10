@@ -29,7 +29,7 @@ def xep_loai(điểm):
     return "Yếu"
 
 df["Xếp loại"] = df["Tổng kết"].apply(xep_loai)
-display(df)
+st.dataframe(df)
 
 #4. Thống kê
 dtb_lop = df["Tổng kết"].mean()
