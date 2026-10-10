@@ -11,7 +11,7 @@ data = {'Họ và tên': ['An', 'Hương', 'Lan', 'Minh', 'Bình', 'Hiền', 'Tr
 df = pd.DataFrame(data)
 df.index = range(1, len(df) +1)
 print("Bảng dữ liệu điểm sinh viên")
-display(df)
+st.dataframe(df)
 
 #2. Tính điểm tổng kết
 df["Tổng kết"] = (0.2 * df['Điểm chuyên cần'] + 0.3 * df['Điểm giữa kì'] + 0.5 * df['Điểm cuối kì']).round(2)
